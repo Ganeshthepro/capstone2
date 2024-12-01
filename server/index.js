@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require('mongoose');
 const cors = require("cors");
 const bcrypt = require('bcrypt');
-const UserModel = require('./models/user'); // Import the user model
+const UserModel=require("./models/login-signup")
 
 const app = express();
 
