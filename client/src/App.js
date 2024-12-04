@@ -1,5 +1,6 @@
 import React from 'react';
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Import Components
 import Home from './components/Home'; // Ensure the path is correct
@@ -8,6 +9,8 @@ import MyStocks from './components/MyStocks';
 import OrderHistory from './components/OrderHistory';
 import Sidebar from './components/Sidebar';
 import TotalFunds from './components/TotalFunds';
+import Signup from './components/Signup';
+import Login from './components/Login';// Import Signup component
 
 function App() {
   return (
@@ -25,6 +28,9 @@ function App() {
             <Route path="/order-history" element={<OrderHistory />} />
             <Route path="/total-funds" element={<TotalFunds />} />
             <Route path="/learn-more" element={<LearnMore />} />
+            <Route path="/signup" element={<Signup />} /> {Route}
+            <Route path="/login" element={<Login />} /> {Route}
+            <Route path="/home" element={<Home />} /> {Route}
           </Routes>
         </div>
       </div>
@@ -33,5 +39,3 @@ function App() {
 }
 
 export default App;
-
-
