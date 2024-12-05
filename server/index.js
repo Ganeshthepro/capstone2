@@ -1,8 +1,9 @@
+require('dotenv').config(); // Load environment variables
 const express = require("express");
 const mongoose = require('mongoose');
 const cors = require("cors");
 const bcrypt = require('bcrypt');
-const UserModel=require("./models/login-signup")
+const UserModel = require("./models/login-signup");
 
 const app = express();
 
@@ -11,7 +12,10 @@ app.use(express.json());
 app.use(cors());
 
 // MongoDB connection
-mongoose.connect("mongodb://127.0.0.1:27017/login-signup")
+mongoose.connect(process.env.DATABASE_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.log("Error connecting to MongoDB:", err));
 
