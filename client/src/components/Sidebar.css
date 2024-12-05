@@ -9,6 +9,30 @@ body {
     /* Ensure text is visible on a black background */
 }
 
+.header-title {
+    display: flex;
+    /* Align logo and text horizontally */
+    align-items: center;
+    /* Vertically align items */
+    gap: 10px;
+    /* Space between logo and text */
+    font-size: 1.5rem;
+    /* Adjust text size */
+    margin-bottom: 20px;
+    /* Space below the header */
+}
+
+.sidebar-logo {
+    width: 40px;
+    /* Set desired logo size */
+    height: 40px;
+    /* Ensure square size */
+    object-fit: contain;
+    /* Maintain aspect ratio */
+    border-radius: 50%;
+    /* Optional: make logo circular */
+}
+
 
 /* Sidebar Styles */
 
@@ -47,6 +71,14 @@ body {
     padding: 0;
 }
 
+.sidebar-logo {
+    width: 40px;
+    /* Adjust the size as needed */
+    height: auto;
+    margin-right: 10px;
+    /* Space between logo and text */
+}
+
 .sidebar-link {
     display: flex;
     align-items: center;
@@ -70,7 +102,6 @@ body {
 }
 
 .sidebar-link.active {
-    background-color: #0056b3;
     /* Highlighted active link background */
     color: white;
     padding-left: 20px;
