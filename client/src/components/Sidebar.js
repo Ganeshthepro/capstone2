@@ -5,7 +5,7 @@ const Sidebar = () => {
     return (
         <div className="sidebar">
             <h2 className="header-title">
-                <img src="/logo.png" alt="Logo" className="sidebar-logo" />
+                <img src="/logo.svg" alt="Logo" className="sidebar-logo" />
                 InvestmentInsights
             </h2>
 
