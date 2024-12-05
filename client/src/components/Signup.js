@@ -24,14 +24,61 @@ function Signup() {
       });
   };
 
+  // Inline styles for the component
+  const styles = {
+    container: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundImage: 'url(/stockbg.jpg)', // Reference the image from the public folder
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      minHeight: '100vh',
+    },
+    formContainer: {
+      backgroundColor: 'rgba(138, 43, 226, 0)', // Transparent light blue background
+      padding: '30px',
+      borderRadius: '8px',
+      width: '35%', // Increased width of the form
+      boxShadow: '0 6px 20px rgba(0, 0, 0, 0.5)', // Dark box shadow
+    },
+    button: {
+      width: '100%',
+      borderRadius: '0',
+    },
+    linkButton: {
+      width: '100%',
+      backgroundColor: 'lightgrey',
+      textDecoration: 'none',
+      padding: '10px',
+      display: 'inline-block',
+      textAlign: 'center',
+      borderRadius: '0',
+    },
+    textDarkGrey: {
+      color: '#B0B0B0', // Dark grey color
+    },
+    logo: {
+      display: 'block',
+      margin: '0 auto 20px', // Center the logo and give margin-bottom
+      width: '120px', // Adjust the size of the logo
+      height: '120px', // Maintain the height for a square shape
+      borderRadius: '50%', // Make the logo circular
+      objectFit: 'cover', // Ensure the image fits the circle without distortion
+    },
+  };
+
   return (
-    <div className="d-flex justify-content-center align-items-center bg-secondary vh-100">
-      <div className="bg-white p-3 rounded w-25">
-        <h2>Register</h2>
+    <div style={styles.container}>
+      <div style={styles.formContainer}>
+        {/* Add logo above the title */}
+        <img src="/logo.jpg" alt="Investment Insights Logo" style={styles.logo} />
+        
+        <h2 style={styles.textDarkGrey}></h2> {/* Set color to dark grey */}
         {error && <div className="alert alert-danger">{error}</div>} {/* Show error message if exists */}
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label htmlFor="name">
+            <label htmlFor="name" style={styles.textDarkGrey}>
               <strong>Name</strong>
             </label>
             <input
@@ -46,7 +93,7 @@ function Signup() {
           </div>
 
           <div className="mb-3">
-            <label htmlFor="email">
+            <label htmlFor="email" style={styles.textDarkGrey}>
               <strong>Email</strong>
             </label>
             <input
@@ -61,7 +108,7 @@ function Signup() {
           </div>
 
           <div className="mb-3">
-            <label htmlFor="password">
+            <label htmlFor="password" style={styles.textDarkGrey}>
               <strong>Password</strong>
             </label>
             <input
@@ -74,15 +121,12 @@ function Signup() {
             />
           </div>
 
-          <button type="submit" className="btn btn-success w-100 rounded-0">
+          <button type="submit" className="btn btn-success" style={styles.button}>
             Register
           </button>
 
-          <p>Already Have an Account?</p>
-          <Link
-            to="/login"
-            className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none"
-          >
+          <p style={styles.textDarkGrey}>Already Have an Account?</p> {/* Set color to dark grey */}
+          <Link to="/login" style={styles.linkButton}>
             Login
           </Link>
         </form>
