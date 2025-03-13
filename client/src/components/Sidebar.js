@@ -5,28 +5,28 @@ const Sidebar = () => {
     return (
         <div className="sidebar">
             <h2 className="header-title">
-                <img src="/logo.svg" alt="Logo" className="sidebar-logo" />
-                InvestmentInsights
+                <img src="/logo.jpg" alt="Logo" className="sidebar-logo" />
+                INSIGHTS
             </h2>
 
             <nav>
                 <ul className="sidebar-list">
                     <li>
-                        <a href="/" className="sidebar-link active">
+                        <a href="/home" className="sidebar-link active">
                             <span className="sidebar-icon">🏠</span>
-                            <span>Home</span>
+                            <span>HOME</span>
                         </a>
                     </li>
                     <li>
                         <a href="/my-stocks" className="sidebar-link">
                             <span className="sidebar-icon">💵</span>
-                            <span>My Stocks</span>
+                            <span>MY STOCKS</span>
                         </a>
                     </li>
                     <li>
                         <a href="/order-history" className="sidebar-link">
                             <span className="sidebar-icon">📜</span>
-                            <span>Order History</span>
+                            <span>ORDER HISTORY</span>
                         </a>
                     </li>
                     <li>
@@ -37,13 +37,13 @@ const Sidebar = () => {
                             rel="noopener noreferrer"
                         >
                             <span className="sidebar-icon">📈</span>
-                            <span>Stocks Prediction</span>
+                            <span>STOCKS PREDICTION</span>
                         </a>
                     </li>
                     <li>
                         <a href="/learn-more" className="sidebar-link">
                             <span className="sidebar-icon">📘</span>
-                            <span>Learn More</span>
+                            <span>LEARN  MORE</span>
                         </a>
                     </li>
                 </ul>

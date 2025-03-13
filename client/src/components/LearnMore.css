@@ -1,6 +1,6 @@
 .learn-more-page {
     background-color: black;
-    color: white;
+    color: #ddddcc;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -11,9 +11,9 @@
 
 .topic-search {
     font-weight: bold;
-    color: white;
+    color: #ddddcc;
     font-size: 24px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .search-bar {
@@ -60,7 +60,7 @@
 
 .topic-box {
     background-color: grey;
-    color: white;
+    color: #ddddcc;
     padding: 15px;
     margin-bottom: 15px;
     border-radius: 5px;
@@ -80,9 +80,9 @@
 /* Highlight the entire topic box when it matches the search term */
 
 .topic-box.highlight-box {
-    background-color: #333;
+    background-color: #374151;
     /* Darker background to emphasize the highlighted box */
-    border: 2px solid yellow;
+    border: 2px solid rgb(8, 8, 8);
     /* Border around the highlighted box */
 }
 
@@ -117,7 +117,7 @@
 .topic-box h3 {
     margin: 0;
     font-size: 20px;
-    color: white;
+    color: #ddddcc;
     /* Makes the text white */
     font-weight: bold;
     /* Makes the text bold */

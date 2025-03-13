@@ -4,12 +4,9 @@
     display: flex;
     min-height: 100%;
     min-width: 100%;
-    background-color: #000;
+    background-color: black;
     /* Black background */
-    justify-content: space-between;
-    gap: 20px;
     /* Spacing between main content and sidebar */
-    padding: 5px;
     box-sizing: border-box;
 }
 
@@ -20,11 +17,9 @@
     margin-top: 5px;
     flex: 1;
     padding: 0px;
-    background-color: #000;
     /* Black background */
-    color: white;
+    color: #ddddcc;
     /* White text for visibility */
-    box-shadow: 0 0px 2px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
 
@@ -35,7 +30,7 @@ h1,
 h2,
 h3 {
     margin: 5px 0;
-    color: #fff;
+    color: #ddddcc;
     /* White text for contrast */
 }
 
@@ -63,18 +58,12 @@ h3 {
     /* Space between chart and total valuation */
     align-items: center;
     /* Align items vertically */
-    background: linear-gradient(135deg, #2c3e50, #34495e);
+    background: linear-gradient(135deg, #1e293b, #374151);
     /* Subtle gradient */
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.chart-box:hover {
-    transform: scale(1.02);
-    /* Slight zoom-in effect */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
 }
 
 
@@ -102,7 +91,7 @@ h3 {
 
 .total-valuation-container h2 {
     font-size: 1.6rem;
-    color: #ffd700;
+    color: #ddddcc;
     /* Gold color for the title */
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     /* Glow effect */
@@ -174,10 +163,10 @@ h3 {
 
 /* Heading for Recent Transactions */
 
-.recent-transactions h3 {
+.recent-transactions h2 {
     font-size: 18px;
     /* Smaller heading size */
-    color: #ffce00;
+    color: #ddddcc;
     margin-bottom: 10px;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
@@ -185,11 +174,10 @@ h3 {
 
 /* Transactions Box */
 
-.transactions-box {
+.transactions-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    /* Smaller gap between items */
+    gap: 15px;
 }
 
 
@@ -198,12 +186,12 @@ h3 {
 .transaction-item {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 5px;
     /* Smaller spacing inside items */
     padding: 10px;
     /* Smaller padding */
-    background-color: #2d3748;
-    border-radius: 6px;
+    background-color: #3c434e;
+    border-radius: 2px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: transform 0.2s, box-shadow 0.2s;
 }
@@ -225,24 +213,55 @@ h3 {
 
 /* Details of Each Transaction */
 
+.transaction-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* Spacing between the amount and Bought/Sold */
+    font-size: 1em;
+    line-height: 1.5;
+}
+
+.transaction-status span {
+    display: inline-block;
+}
+
+.transaction-type {
+    color: #ddddcc;
+    /* Neutral color for the Bought/Sold text */
+    font-style: italic;
+    font-weight: normal;
+}
+
 .transaction-details {
     display: flex;
     flex-direction: column;
-    color: #fff;
-    flex: 1;
+    text-align: left;
+    gap: 5px;
+    font-family: 'Arial', sans-serif;
+    color: #ddddcc;
+    transition: all 0.2s ease;
 }
 
-.transaction-stock-name {
-    font-size: 1.2rem;
-    /* Slightly smaller font size for the stock name */
+.transaction-details p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+.transaction-details p:first-child {
+    font-size: 1.2em;
     font-weight: bold;
-    color: #38bdf8;
 }
 
-.transaction-stock-value {
-    font-size: 1rem;
-    /* Smaller font size for stock value */
-    color: #22c55e;
+.transaction-details p:last-child {
+    font-size: 0.9em;
+    font-style: italic;
+    color: #ddddcc;
+}
+
+.transaction-item:hover .transaction-details {
+    color: #ddddcc;
+    transform: scale(1.02);
 }
 
 
@@ -254,7 +273,7 @@ h3 {
 }
 
 .transactions-box::-webkit-scrollbar-thumb {
-    background: #4caf50;
+    background: #32bb42;
     border-radius: 6px;
 }
 
@@ -293,19 +312,20 @@ h3 {
 /* Right Sidebar */
 
 .right-sidebar {
-    width: 310px;
+    width: 320px;
+    height: 500px;
+    height: 100%;
+    margin-left: 10px;
+    margin-right: 0px;
     background-color: #000;
-    /* Black background */
     color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
     box-sizing: border-box;
     overflow: hidden;
+    position: relative;
 }
 
 
@@ -334,89 +354,31 @@ h3 {
 
 /* Demat Account Section */
 
-.demat-card {
-    width: 280px;
-    /* Updated for a more compact look */
-    height: 150px;
-    /* Slimmer height */
-    background-color: rgb(91, 151, 235);
-    /* Keep current background */
-    color: white;
-    padding: 15px;
-    margin-top: 20px;
-    border-radius: 15px;
-    /* Slightly rounded corners */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    /* Subtle shadow */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-
-/* Card Content */
-
-.demat-card h3 {
-    font-size: 18px;
-    font-weight: bold;
-    margin: 0;
-    color: white;
-}
-
-.demat-card p {
-    font-size: 14px;
-    margin: 5px 0 0 0;
-    color: white;
-}
-
-
-/* Card Number and Icon Styling */
-
-.demat-card .card-details {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.demat-card .card-number {
-    font-size: 16px;
-    letter-spacing: 2px;
-    color: white;
-}
-
-.demat-card .card-logo {
-    width: 40px;
-    height: auto;
-}
-
-
-/* Hover Effect */
-
-.demat-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-}
-
-
-/* Add Account Button */
-
-.add-account-btn {
-    margin-top: 15px;
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.demat-image {
     width: 100%;
+    /* Adjusts to the container's width */
+    max-width: 600px;
+    /* Optional: You can increase or decrease this value */
+    height: 200px;
+    /* Increase the height as needed */
+    object-fit: cover;
+    /* Ensures the image covers the space without distortion */
+    border-radius: 10px;
+    /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    filter: brightness(0.95);
+    margin-top: 20px;
+    /* Optional: Adjust space above */
 }
 
-.add-account-btn:hover {
-    background-color: #0056b3;
+.demat-image:hover {
+    transform: scale(1.05);
+    /* Slight zoom effect on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), 0 12px 30px rgba(0, 0, 0, 0.25);
+    filter: brightness(1);
+    /* Brighten the image on hover */
 }
 
 
@@ -430,7 +392,8 @@ h3 {
     .right-sidebar,
     .main-content {
         width: 100%;
-        padding: 10px;
+        height: 100%;
+        padding: 20px;
     }
     .profile img {
         width: 80px;

@@ -1,0 +1,100 @@
+.order-history {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: black;
+    min-height: 100vh;
+    transition: all 0.3s ease-in-out;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 32px;
+    color: white;
+    text-transform: uppercase;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #3c434e;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+    padding: 12px;
+    text-align: left;
+    font-size: 14px;
+    border-bottom: 1px solid #3c434e;
+}
+
+th {
+    background-color: #4CAF50;
+    color: black;
+    text-transform: uppercase;
+    position: sticky;
+    top: 0;
+    /* Keeps the header at the top */
+    z-index: 1;
+    /* Ensure header stays above table rows */
+}
+
+td {
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #555b66;
+}
+
+tr:hover {
+    background-color: rgb(167, 165, 165);
+    transform: scale(1.02);
+    transition: all 0.2s ease-in-out;
+}
+
+.table-container {
+    overflow-y: auto;
+    /* Enable vertical scrolling */
+    max-width: 100%;
+    max-height: 600px;
+    /* Set a fixed height for the container */
+    margin-top: 20px;
+}
+
+td:hover {
+    background-color: rgb(167, 165, 165);
+    cursor: pointer;
+}
+
+h1,
+table {
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.status-bought {
+    color: #28a745;
+    /* Green text for Bought */
+    font-weight: bold;
+    /* Make text bold */
+}
+
+.status-sold {
+    color: #dc3545;
+    /* Red text for Sold */
+    font-weight: bold;
+    /* Make text bold */
+}
+
+@media (max-width: 768px) {
+    table {
+        font-size: 12px;
+    }
+    h1 {
+        font-size: 28px;
+    }
+}
