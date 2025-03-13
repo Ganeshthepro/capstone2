@@ -1,0 +1,159 @@
+.learn-more-page {
+    background-color: black;
+    color: #ddddcc;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.topic-search {
+    font-weight: bold;
+    color: #ddddcc;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.search-bar {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+.search-bar:focus {
+    border-color: #aaa;
+}
+
+.topics-container {
+    width: 80%;
+    max-height: calc(100vh - 100px);
+    /* Adjust height to fit within the window */
+    overflow-y: auto;
+    background-color: #121212;
+    padding: 15px;
+    border-radius: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: #888 #121212;
+}
+
+
+/* Scrollbar styles */
+
+.topics-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.topics-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.topics-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.topic-box {
+    background-color: grey;
+    color: #ddddcc;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Initial shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Smooth effects */
+}
+
+.highlight {
+    /* Highlight color */
+    font-weight: bold;
+    /* Bold to make the highlight stand out */
+}
+
+
+/* Highlight the entire topic box when it matches the search term */
+
+.topic-box.highlight-box {
+    background-color: #374151;
+    /* Darker background to emphasize the highlighted box */
+    border: 2px solid rgb(8, 8, 8);
+    /* Border around the highlighted box */
+}
+
+
+/* Hover effects */
+
+.topic-box:hover {
+    transform: translateY(-5px);
+    /* Lift up slightly */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    /* Enhanced shadow */
+    background-color: #6e6e6e;
+    /* Slightly darker grey */
+    cursor: pointer;
+}
+
+
+/* Link color change on hover */
+
+.topic-box a {
+    color: #1e90ff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.topic-box a:hover {
+    color: #00bfff;
+    /* Lighter blue */
+    text-decoration: underline;
+}
+
+.topic-box h3 {
+    margin: 0;
+    font-size: 20px;
+    color: #ddddcc;
+    /* Makes the text white */
+    font-weight: bold;
+    /* Makes the text bold */
+}
+
+.topic-box p {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+
+/* Pop-up effect for matched topics */
+
+.topic-box.popup {
+    transform: scale(1.1);
+    /* Scale up the matched topic */
+    opacity: 1;
+    /* Make sure it's visible */
+    border: 2px solid #4CAF50;
+    /* Add a border to highlight the matched topic */
+}
+
+.topics-container {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Hide non-matching topics */
+
+.topic-box {
+    display: none;
+    /* Hide by default */
+}
+
+.topic-box.show {
+    display: block;
+    /* Show matched topics */
+}

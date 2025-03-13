@@ -15,7 +15,7 @@ function Login() {
       .post('http://localhost:3001/login', { email, password })
       .then((result) => {
         console.log(result);
-        navigate('/dashboard'); // Navigate to dashboard after successful login
+        navigate('/home'); // Navigate to dashboard after successful login
       })
       .catch((err) => {
         console.log(err);

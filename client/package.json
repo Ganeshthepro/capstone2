@@ -9,13 +9,11 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "author": "Garvita Jhanwar",
-  "license": "MIT",
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
     "axios": "^1.7.8",
     "bootstrap": "^5.3.3",
-    "chart.js": "^4.4.6",
+    "chart.js": "^4.4.7",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
@@ -42,6 +40,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@eslint/js": "^9.16.0",
     "autoprefixer": "^10.4.20",
     "eslint": "^8.57.1",
