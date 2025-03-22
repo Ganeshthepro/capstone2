@@ -6,22 +6,33 @@ function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(""); // State to handle error messages
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    axios
-      .post('http://localhost:3001/user', { name, email, password })
-      .then((result) => {
-        console.log(result);
-        navigate('/home');
-      })
-      .catch((err) => {
-        console.log(err);
-        setError("Registration failed, please try again."); // Show error message
+    try {
+      const response = await axios.post('http://localhost:3001/user', { 
+        name, 
+        email, 
+        password 
       });
+      
+      // Store the JWT token in localStorage
+      localStorage.setItem('token', response.data.token);
+      // Store user details in localStorage
+      localStorage.setItem('user', JSON.stringify({
+        id: response.data.userId,
+        email: response.data.email
+      }));
+      
+      console.log('Signup successful:', response.data);
+      navigate('/login');
+    } catch (err) {
+      console.error(err);
+      setError(err.response?.data?.message || "Registration failed, please try again.");
+    }
   };
 
   // Inline styles for the component
@@ -71,11 +82,13 @@ function Signup() {
   return (
     <div style={styles.container}>
       <div style={styles.formContainer}>
-        {/* Add logo above the title */}
+        {/* Add logo above the form */}
         <img src="/logo.jpg" alt="Investment Insights Logo" style={styles.logo} />
         
-        <h2 style={styles.textDarkGrey}></h2> {/* Set color to dark grey */}
-        {error && <div className="alert alert-danger">{error}</div>} {/* Show error message if exists */}
+        {/* Optional: Add a heading if desired */}
+        <h2 style={styles.textDarkGrey}>Sign Up</h2>
+        
+        {error && <div className="alert alert-danger">{error}</div>}
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="name" style={styles.textDarkGrey}>
@@ -88,7 +101,7 @@ function Signup() {
               name="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="form-control rounded-8"
+              className="form-control rounded-0" // Fixed rounded-8 to rounded-0 for consistency
             />
           </div>
 
@@ -125,7 +138,7 @@ function Signup() {
             Register
           </button>
 
-          <p style={styles.textDarkGrey}>Already Have an Account?</p> {/* Set color to dark grey */}
+          <p style={styles.textDarkGrey}>Already Have an Account?</p>
           <Link to="/login" style={styles.linkButton}>
             Login
           </Link>

@@ -5,22 +5,32 @@ import axios from "axios";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(""); // State to handle error messages
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    axios
-      .post('http://localhost:3001/login', { email, password })
-      .then((result) => {
-        console.log(result);
-        navigate('/home'); // Navigate to dashboard after successful login
-      })
-      .catch((err) => {
-        console.log(err);
-        setError("Login failed, please check your credentials."); // Show error message
+    try {
+      const response = await axios.post('http://localhost:3001/login', { 
+        email, 
+        password 
       });
+      
+      // Store the JWT token in localStorage
+      localStorage.setItem('token', response.data.token);
+      // Store user details in localStorage
+      localStorage.setItem('user', JSON.stringify({
+        id: response.data.userId,
+        email: response.data.email
+      }));
+      
+      console.log('Login successful:', response.data);
+      navigate('/home'); // Navigate to dashboard after successful login
+    } catch (err) {
+      console.error(err);
+      setError(err.response?.data?.message || "Login failed, please check your credentials.");
+    }
   };
 
   // Inline styles for the component
@@ -77,8 +87,8 @@ function Login() {
         {/* Add logo above the title */}
         <img src="/logo.jpg" alt="Investment Insights Logo" style={styles.logo} />
         
-        <h2 style={styles.welcomeText}>Welcome To InvestmentInsights</h2> {/* Set color to light grey and bold */}
-        {error && <div className="alert alert-danger">{error}</div>} {/* Show error message if exists */}
+        <h2 style={styles.welcomeText}>Welcome To InvestmentInsights</h2>
+        {error && <div className="alert alert-danger">{error}</div>}
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="email" style={styles.textDarkGrey}>
@@ -113,7 +123,7 @@ function Login() {
             Login
           </button>
 
-          <p style={styles.textDarkGrey}>Don't Have an Account?</p> {/* Set color to dark grey */}
+          <p style={styles.textDarkGrey}>Don't Have an Account?</p>
           <Link to="/signup" style={styles.linkButton}>
             Sign Up
           </Link>
