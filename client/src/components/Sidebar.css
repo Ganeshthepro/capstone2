@@ -1,0 +1,140 @@
+/* Body Styles */
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    /* Set full background to black */
+    color: white;
+    /* Ensure text is visible on a black background */
+}
+
+.header-title {
+    display: flex;
+    /* Align logo and text horizontally */
+    align-items: center;
+    /* Vertically align items */
+    gap: 10px;
+    /* Space between logo and text */
+    font-size: 1.5rem;
+    /* Adjust text size */
+    margin-bottom: 20px;
+    /* Space below the header */
+}
+
+.sidebar-logo {
+    width: 40px;
+    /* Set desired logo size */
+    height: 40px;
+    /* Ensure square size */
+    object-fit: contain;
+    /* Maintain aspect ratio */
+    border-radius: 50%;
+    /* Optional: make logo circular */
+}
+
+
+/* Sidebar Styles */
+
+.sidebar {
+    width: 250px;
+    background: black;
+    /* Black background for sidebar */
+    padding: 20px;
+    height: 100vh;
+    /* Full height of the viewport */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.sidebar h2 {
+    text-align: left;
+    font-size: 20px;
+    color: white;
+    /* White text for better visibility */
+    font-weight: bold;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar h2 img {
+    height: 24px;
+    margin-right: 10px;
+    /* Logo size and spacing */
+}
+
+.sidebar-list {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-logo {
+    width: 40px;
+    /* Adjust the size as needed */
+    height: auto;
+    margin-right: 10px;
+    /* Space between logo and text */
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    margin: 10px 0;
+    text-decoration: none;
+    color: white;
+    /* White text for better contrast */
+    font-size: 16px;
+    border-radius: 6px;
+    /* Rounded corners for links */
+    transition: background-color 0.3s ease, padding-left 0.2s ease;
+}
+
+.sidebar-link:hover {
+    background-color: #333333;
+    /* Dark gray hover */
+    color: white;
+    padding-left: 20px;
+    /* Slight left shift on hover */
+}
+
+.sidebar-link.active {
+    /* Highlighted active link background */
+    color: white;
+    padding-left: 20px;
+    /* Maintain left shift on active */
+}
+
+.sidebar-link span {
+    margin-left: 10px;
+    /* Spacing between icon and text */
+}
+
+.sidebar-icon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Responsive Behavior for Smaller Screens */
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+        padding: 10px;
+    }
+    .sidebar h2 {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+    .sidebar-link {
+        font-size: 14px;
+        padding: 8px 10px;
+    }
+}

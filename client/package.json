@@ -1,0 +1,51 @@
+{
+  "name": "investment-insights",
+  "version": "1.0.0",
+  "description": "A web application to track stock investments with real-time insights and valuation.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "react-scripts start && start http://localhost:3003/Signup",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "dependencies": {
+    "@auth0/auth0-react": "^2.2.4",
+    "axios": "^1.7.8",
+    "bootstrap": "^5.3.3",
+    "chart.js": "^4.4.7",
+    "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.28.0",
+    "react-scripts": "^5.0.1",
+    "web-vitals": "^2.1.4"
+  },
+  "keywords": [
+    "stocks",
+    "finance",
+    "investment",
+    "real-time insights"
+  ],
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@eslint/js": "^9.16.0",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^8.57.1",
+    "eslint-plugin-react": "^7.37.2",
+    "globals": "^15.12.0",
+    "postcss": "^8.4.49"
+  }
+}
