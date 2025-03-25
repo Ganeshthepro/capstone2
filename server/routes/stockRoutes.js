@@ -3,13 +3,10 @@ const router = express.Router();
 const axios = require('axios');
 const { Portfolio } = require('../models/stockmodel');
 
-// Alpha Vantage API Key from environment
 const ALPHA_VANTAGE_API_KEY = process.env.ALPHA_VANTAGE_API_KEY || 'YOUR_API_KEY_HERE';
 
-// Utility function to delay execution
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-// Authentication Middleware
 const authenticateToken = (req, res, next) => {
   const token = req.headers.authorization?.split(' ')[1];
   if (!token) return res.status(401).json({ message: 'Authentication required' });
@@ -23,7 +20,6 @@ const authenticateToken = (req, res, next) => {
   }
 };
 
-// Real-time Stock Data Route for US Stocks
 router.get('/stocks', async (req, res) => {
   try {
     console.log('Alpha Vantage API Key:', ALPHA_VANTAGE_API_KEY);
@@ -68,7 +64,7 @@ router.get('/stocks', async (req, res) => {
       } catch (error) {
         console.error(`Error fetching ${symbol}:`, error.message);
       }
-      await delay(12000); // 12-second delay to respect 5 calls/minute limit
+      await delay(12000); 
     }
 
     console.log('Stocks fetched:', stocks);
