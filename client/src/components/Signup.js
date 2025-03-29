@@ -1,6 +1,6 @@
+import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 
 function Signup() {
   const [name, setName] = useState("");
@@ -12,46 +12,52 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!name.trim() || !email.trim() || !password.trim()) {
+      setError("Please fill in all fields.");
+      return;
+    }
+
     try {
-      const response = await axios.post('http://localhost:3001/user', { 
-        name, 
-        email, 
-        password 
+      const response = await axios.post('http://localhost:3001/user', {
+        name,
+        email,
+        password
       });
-      
-      // Store the JWT token in localStorage
+
+
       localStorage.setItem('token', response.data.token);
-      // Store user details in localStorage
       localStorage.setItem('user', JSON.stringify({
         id: response.data.userId,
+        name: response.data.name || name,
         email: response.data.email
       }));
-      
+
       console.log('Signup successful:', response.data);
+      setError("");
       navigate('/login');
     } catch (err) {
-      console.error(err);
-      setError(err.response?.data?.message || "Registration failed, please try again.");
+      console.error('Signup error:', err.response || err.message);
+      setError(err.response?.data?.message || "Registration failed. Please try again.");
     }
   };
 
-  // Inline styles for the component
   const styles = {
     container: {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundImage: 'url(/stockbg.jpg)', // Reference the image from the public folder
+      backgroundImage: 'url(/stockbg.jpg)',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       minHeight: '100vh',
+      width: '100vw',
     },
     formContainer: {
-      backgroundColor: 'rgba(138, 43, 226, 0)', // Transparent light blue background
+      backgroundColor: 'rgba(138, 43, 226, 0)',
       padding: '30px',
       borderRadius: '8px',
-      width: '35%', // Increased width of the form
-      boxShadow: '0 6px 20px rgba(0, 0, 0, 0.5)', // Dark box shadow
+      width: '35%',
+      boxShadow: '0 6px 20px rgba(0, 0, 0, 0.5)',
     },
     button: {
       width: '100%',
@@ -67,27 +73,29 @@ function Signup() {
       borderRadius: '0',
     },
     textDarkGrey: {
-      color: '#B0B0B0', // Dark grey color
+      color: '#B0B0B0',
     },
     logo: {
       display: 'block',
-      margin: '0 auto 20px', // Center the logo and give margin-bottom
-      width: '120px', // Adjust the size of the logo
-      height: '120px', // Maintain the height for a square shape
-      borderRadius: '50%', // Make the logo circular
-      objectFit: 'cover', // Ensure the image fits the circle without distortion
+      margin: '0 auto 20px',
+      width: '120px',
+      height: '120px',
+      borderRadius: '50%',
+      objectFit: 'cover',
+    },
+    welcomeText: {
+      color: 'lightgrey',
+      fontWeight: 'bold',
+      textAlign: 'center',
     },
   };
 
   return (
     <div style={styles.container}>
       <div style={styles.formContainer}>
-        {/* Add logo above the form */}
         <img src="/logo.jpg" alt="Investment Insights Logo" style={styles.logo} />
-        
-        {/* Optional: Add a heading if desired */}
-        <h2 style={styles.textDarkGrey}>Sign Up</h2>
-        
+        <h2 style={styles.welcomeText}>Welcome To InvestmentInsights</h2>
+        <h3 style={styles.textDarkGrey}>Sign Up</h3>
         {error && <div className="alert alert-danger">{error}</div>}
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
@@ -101,10 +109,9 @@ function Signup() {
               name="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="form-control rounded-0" // Fixed rounded-8 to rounded-0 for consistency
+              className="form-control rounded-0"
             />
           </div>
-
           <div className="mb-3">
             <label htmlFor="email" style={styles.textDarkGrey}>
               <strong>Email</strong>
@@ -119,7 +126,6 @@ function Signup() {
               className="form-control rounded-0"
             />
           </div>
-
           <div className="mb-3">
             <label htmlFor="password" style={styles.textDarkGrey}>
               <strong>Password</strong>
@@ -133,15 +139,11 @@ function Signup() {
               className="form-control rounded-0"
             />
           </div>
-
           <button type="submit" className="btn btn-success" style={styles.button}>
             Register
           </button>
-
           <p style={styles.textDarkGrey}>Already Have an Account?</p>
-          <Link to="/login" style={styles.linkButton}>
-            Login
-          </Link>
+          <Link to="/login" style={styles.linkButton}>Login</Link>
         </form>
       </div>
     </div>
