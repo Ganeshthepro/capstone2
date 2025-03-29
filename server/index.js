@@ -13,7 +13,7 @@ app.use(cors());
 
 const SECRET_KEY = process.env.SECRET_KEY || 'your-secret-key';
 
-// Connect to MongoDB Atlas
+
 mongoose.connect(process.env.DATABASE_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -21,7 +21,7 @@ mongoose.connect(process.env.DATABASE_URL, {
   .then(() => console.log('Connected to MongoDB Atlas'))
   .catch((err) => console.error('MongoDB connection error:', err));
 
-// Signup endpoint
+
 app.post('/user', async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -40,7 +40,6 @@ app.post('/user', async (req, res) => {
   }
 });
 
-// Login endpoint
 app.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -52,15 +51,15 @@ app.post('/login', async (req, res) => {
     if (!isValid) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
-    const token = jwt.sign({ userId: user._id, email: user.email }, SECRET_KEY, { expiresIn: '2h' });
-    res.json({ token, userId: user._id, email: user.email });
+    const token = jwt.sign({ userId: user._id, email: user.email, name: user.name }, SECRET_KEY, { expiresIn: '2h' });
+    res.json({ token, userId: user._id, email: user.email, name: user.name });
   } catch (error) {
     console.error('Login error:', error);
     res.status(500).json({ message: 'Server error' });
   }
 });
 
-// Protected route example
+
 app.get('/protected', (req, res) => {
   const token = req.headers.authorization?.split(' ')[1];
   if (!token) {
