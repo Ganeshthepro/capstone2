@@ -1,15 +1,16 @@
+import axios from 'axios';
 import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js';
 import React, { useEffect, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import './Home.css';
-import ProfileCard from './ProfileCard'; // Separate component for the profile
+import ProfileCard from './ProfileCard';
 
-// Register Chart.js components
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const Home = () => {
-    const [userName, setUserName] = useState('Garvita');
-    const [stockData, setStockData] = useState({
+
+    const [user, setUser] = useState({ name: 'Guest', email: '' });
+    const [stockData] = useState({
         stocks: [
             { stock: 'AAPL', status: 'buy', quantity: 50, pricePerUnit: 600 },
             { stock: 'GOOGL', status: 'buy', quantity: 20, pricePerUnit: 1025 },
@@ -60,176 +61,191 @@ const Home = () => {
             { stock: 'AMT', status: 'buy', quantity: 20, pricePerUnit: 300 },
             { stock: 'PLD', status: 'sold', quantity: 25, pricePerUnit: 200 },
             { stock: 'REGN', status: 'buy', quantity: 18, pricePerUnit: 500 },
-            { stock: 'ZTS', status: 'sold', quantity: 15, pricePerUnit: 300 },
-            { stock: 'MO', status: 'buy', quantity: 10, pricePerUnit: 150 },
-            { stock: 'PM', status: 'sold', quantity: 20, pricePerUnit: 180 },
-            { stock: 'CVX', status: 'buy', quantity: 25, pricePerUnit: 300 },
-            { stock: 'XOM', status: 'sold', quantity: 30, pricePerUnit: 200 },
-        ]
+            { stock: 'ZTS', status: 'sold', quantity: 15, pricePerUnit: 300 }
+        ],
     });
-
     const [totalValuation, setTotalValuation] = useState(0);
 
+
     useEffect(() => {
-        // Calculate the total valuation for 'buy' stocks
-        const buyStocks = stockData.stocks.filter(stock => stock.status === 'buy');
-        const total = buyStocks.reduce((sum, stock) => sum + stock.quantity * stock.pricePerUnit, 0);
-        setTotalValuation(total);
-    }, [stockData]);
+        const storedUser = JSON.parse(localStorage.getItem('user'));
 
-    // Categorize stocks into Low, Medium, High, and Sold based on their value
-    const categorizeStocks = (stocks) => {
-        return stocks.map(stock => {
-            if (stock.status === 'sold') {
-                return 'sold';
-            } else if (stock.quantity * stock.pricePerUnit <= 20000) {
-                return 'low';
-            } else if (stock.quantity * stock.pricePerUnit <= 30000) {
-                return 'medium';
-            } else {
-                return 'high';
-            }
+        if (storedUser) {
+            setUser({
+                name: storedUser.name || storedUser.email?.split('@')[0] || 'Guest',
+                email: storedUser.email || '',
+            });
+        }
+
+
+        const storedToken = localStorage.getItem('token');
+        const fetchUserData = async () => {
+            try {
+                const response = await axios.get('http://localhost:3001/user', {
+                    headers: { Authorization: `Bearer ${ storedToken }` },
         });
-    };
-
-    // Sort the stocks into different categories
-    const sortedStocks = {
-        sold: [],
-        low: [],
-        medium: [],
-        high: []
-    };
-
-    stockData.stocks.forEach((stock) => {
-        const category = categorizeStocks([stock])[0];
-        sortedStocks[category].push(stock.quantity * stock.pricePerUnit);
+    setUser({
+        name: response.data.name || response.data.email?.split('@')[0] || 'Guest',
+        email: response.data.email || '',
     });
-
-
-    // Combine all categories into a single array for chart data
-    const sortedData = [
-        ...sortedStocks.sold,
-        ...sortedStocks.high,
-        ...sortedStocks.medium,
-        ...sortedStocks.low
-    ];
-
-
-    const colorPalette = {
-        sold: 'rgba(244, 67, 54, 0.8)', // Fresh coral red
-        low: 'rgba(33, 150, 243, 0.8)', // Fresh sky blue
-        medium: 'rgba(255, 235, 59, 0.8)', // Fresh sunny yellow
-        high: 'rgba(76, 175, 80, 0.8)' // Fresh green
+} catch (error) {
+    console.error('Failed to fetch user data:', error.response || error.message);
+}
     };
 
+if (storedToken) fetchUserData();
+  }, []);
 
-    const chartData = {
-        labels: ['Sold', 'High', 'Medium', 'Low'],
-        datasets: [{
+
+useEffect(() => {
+    const buyStocks = stockData.stocks.filter(stock => stock.status === 'buy');
+    const total = buyStocks.reduce((sum, stock) => sum + stock.quantity * stock.pricePerUnit, 0);
+    setTotalValuation(total);
+}, [stockData]);
+
+
+const categorizeStocks = (stocks) => {
+    return stocks.map(stock => {
+        if (stock.status === 'sold') {
+            return 'sold';
+        } else if (stock.quantity * stock.pricePerUnit <= 20000) {
+            return 'low';
+        } else if (stock.quantity * stock.pricePerUnit <= 30000) {
+            return 'medium';
+        } else {
+            return 'high';
+        }
+    });
+};
+
+
+const sortedStocks = {
+    sold: [],
+    low: [],
+    medium: [],
+    high: [],
+};
+
+stockData.stocks.forEach((stock) => {
+    const category = categorizeStocks([stock])[0];
+    sortedStocks[category].push(stock.quantity * stock.pricePerUnit);
+});
+
+
+const colorPalette = {
+    sold: 'rgba(214, 37, 25, 0.8)',
+    low: 'rgba(33, 150, 243, 0.8)',
+    medium: 'rgba(255, 235, 59, 0.8)',
+    high: 'rgba(76, 175, 80, 0.8)',
+};
+
+const chartData = {
+    labels: ['Sold', 'High', 'Medium', 'Low'],
+    datasets: [
+        {
             data: [
                 sortedStocks.sold.length,
                 sortedStocks.high.length,
                 sortedStocks.medium.length,
-                sortedStocks.low.length
+                sortedStocks.low.length,
             ],
             backgroundColor: [
                 colorPalette.sold,
                 colorPalette.high,
                 colorPalette.medium,
-                colorPalette.low
+                colorPalette.low,
             ],
-            borderWidth: 1
-        }]
-    };
+            borderWidth: 1,
+        },
+    ],
+};
 
-    const chartOptions = {
-        responsive: true,
-        plugins: {
-            legend: {
-                display: false, // Hide legend for more space
-            },
-            tooltip: {
-                callbacks: {
-                    label: function (tooltipItem) {
-                        const stockIndex = tooltipItem.dataIndex;
-                        const stockName = stockData.stocks[stockIndex]?.stock || "Unknown"; // Use 'stock' instead of 'name'
-                        const quantity = stockData.stocks[stockIndex]?.quantity || 0;
-                        const pricePerUnit = stockData.stocks[stockIndex]?.pricePerUnit || 0;
-                        const stockValue = quantity * pricePerUnit;
+const chartOptions = {
+    responsive: true,
+    plugins: {
+        legend: {
+            display: false,
+        },
+        tooltip: {
+            callbacks: {
+                label: function (tooltipItem) {
+                    const stockIndex = tooltipItem.dataIndex;
+                    const stockName = stockData.stocks[stockIndex]?.stock || 'Unknown';
+                    const quantity = stockData.stocks[stockIndex]?.quantity || 0;
+                    const pricePerUnit = stockData.stocks[stockIndex]?.pricePerUnit || 0;
+                    const stockValue = quantity * pricePerUnit;
 
-                        return `${stockName}: ₹${stockValue.toLocaleString()}`;
-                    },
+                    return `${ stockName }: ₹${ stockValue.toLocaleString() }`;
                 },
             },
         },
-        elements: {
-            arc: {
-                borderWidth: 0, // Removes white border lines between segments
-            },
+    },
+    elements: {
+        arc: {
+            borderWidth: 0,
         },
-        cutoutPercentage: 80, // Allows space in the center for total valuation
-    };
+    },
+    cutoutPercentage: 80,
+};
 
-    return (
-        <div className="home-container">
-            {/* Main Content */}
-            <div className="main-content">
-                <h1>Welcome, {userName}</h1>
-                <p>Get Insights of Your Investments</p>
+return (
+    <div className="home-container">
 
-                {/* Flex container for chart and total valuation */}
-                <div className="chart-box">
-                    {/* Doughnut chart */}
-                    <div className="donut-chart">
-                        <Doughnut data={chartData} options={chartOptions} />
-                    </div>
+        <div className="main-content">
+            <h1>Welcome, {user.name}</h1>
+            <p><bold>Master Your Investments: Track, Analyze & Maximize Your Portfolio</bold></p>
 
-                    {/* Total Valuation */}
-                    <div className="total-valuation-container">
-                        <h2>Total Valuation</h2>
-                        <p className="total-valuation">₹{totalValuation.toLocaleString()}</p>
-                    </div>
+
+            <div className="chart-box">
+
+                <div className="donut-chart">
+                    <Doughnut data={chartData} options={chartOptions} />
                 </div>
 
-                <div className="recent-transactions">
-                    <h2>Recent Transactions</h2>
-                    <div className="transactions-list">
-                        {stockData.stocks.map((stock, index) => (
-                            <div key={index} className="transaction-item">
-                                {/* Stock name displayed here */}
-                                <div className="transaction-details">
-                                    <h2>{stock.stock}</h2>
-                                    <div className="transaction-status">
-                                        <span
-                                            style={{
-                                                color: stock.status === 'buy' ? 'green' : 'red',
-                                                fontWeight: 'bold',
-                                            }}
-                                        >
-                                            ₹{(stock.quantity * stock.pricePerUnit).toLocaleString()}
-                                        </span>
-                                        <span className="transaction-type">
-                                            {` ${stock.status.charAt(0).toUpperCase() + stock.status.slice(1)}`}
-                                        </span>
-                                    </div>
+
+                <div className="total-valuation-container">
+                    <h2>Total Valuation</h2>
+                    <p className="total-valuation">₹{totalValuation.toLocaleString()}</p>
+                </div>
+            </div>
+
+            <div className="recent-transactions">
+                <h3>Recent Transactions</h3>
+                <div className="transactions-list">
+                    {stockData.stocks.map((stock, index) => (
+                        <div key={index} className="transaction-item">
+                            <div className="transaction-details">
+                                <h2>{stock.stock}</h2>
+                                <div className="transaction-status">
+                                    <span
+                                        style={{
+                                            color: stock.status === 'buy' ? 'green' : 'red',
+                                            fontWeight: 'bold',
+                                        }}
+                                    >
+                                        ₹{(stock.quantity * stock.pricePerUnit).toLocaleString()}
+                                    </span>
+                                    <span className="transaction-type">
+                                        {` ${stock.status.charAt(0).toUpperCase() + stock.status.slice(1)}`}
+                                    </span>
                                 </div>
                             </div>
-                        ))}
-                    </div>
+                        </div>
+                    ))}
                 </div>
             </div>
-            {/* Right Sidebar */}
-            <div className="right-sidebar">
-                <ProfileCard
-                    name="Garvita Jhanwar"
-                    email="garvitajhawar10@gmail.com"
-                    image="/logo.jpg"
-                />
-                {/* Replace DematCard with an Image */}
-                <img src="/card.png" alt="Card" className="demat-image" />
-            </div>
         </div>
-    );
+
+        <div className="right-sidebar">
+            <ProfileCard
+                name={user.name}
+                email={user.email}
+                image="/logo.jpg"
+            />
+            <img src="/card.png" alt="Card" className="demat-image" />
+        </div>
+    </div>
+);
 };
 
 export default Home;

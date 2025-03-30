@@ -1,140 +1,137 @@
-/* Body Styles */
-
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #000;
-    /* Set full background to black */
-    color: white;
-    /* Ensure text is visible on a black background */
+    font-family: 'Poppins', sans-serif;
+    background-color: white;
+    color: #333;
 }
 
 .header-title {
     display: flex;
-    /* Align logo and text horizontally */
     align-items: center;
-    /* Vertically align items */
-    gap: 10px;
-    /* Space between logo and text */
-    font-size: 1.5rem;
-    /* Adjust text size */
-    margin-bottom: 20px;
-    /* Space below the header */
+    gap: 12px;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: #222;
 }
 
 .sidebar-logo {
-    width: 40px;
-    /* Set desired logo size */
-    height: 40px;
-    /* Ensure square size */
+    width: 45px;
+    height: 45px;
     object-fit: contain;
-    /* Maintain aspect ratio */
     border-radius: 50%;
-    /* Optional: make logo circular */
 }
 
-
-/* Sidebar Styles */
-
 .sidebar {
-    width: 250px;
-    background: black;
-    /* Black background for sidebar */
-    padding: 20px;
+    width: 260px;
+    background: white;
+    padding: 25px 20px;
     height: 100vh;
-    /* Full height of the viewport */
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-between;
 }
 
 .sidebar h2 {
     text-align: left;
-    font-size: 20px;
-    color: white;
-    /* White text for better visibility */
-    font-weight: bold;
-    margin-bottom: 30px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #222;
     display: flex;
     align-items: center;
+    margin-bottom: 10px;
 }
 
 .sidebar h2 img {
-    height: 24px;
-    margin-right: 10px;
-    /* Logo size and spacing */
+    height: 65px;
+    margin-right: 12px;
+    margin-left: 12px;
 }
 
 .sidebar-list {
     list-style: none;
     padding: 0;
+    flex-grow: 1;
+    margin-top: 5px;
 }
 
 .sidebar-logo {
-    width: 40px;
-    /* Adjust the size as needed */
+    width: 45px;
     height: auto;
-    margin-right: 10px;
-    /* Space between logo and text */
+    margin-right: 12px;
 }
 
 .sidebar-link {
     display: flex;
     align-items: center;
-    padding: 10px 15px;
-    margin: 10px 0;
+    padding: 12px 18px;
+    margin: 5px 0;
     text-decoration: none;
-    color: white;
-    /* White text for better contrast */
+    color: #0a0a0a;
     font-size: 16px;
-    border-radius: 6px;
-    /* Rounded corners for links */
-    transition: background-color 0.3s ease, padding-left 0.2s ease;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, padding-left 0.3s ease;
 }
 
 .sidebar-link:hover {
-    background-color: #333333;
-    /* Dark gray hover */
-    color: white;
-    padding-left: 20px;
-    /* Slight left shift on hover */
+    background-color: #e0e7ff;
+    color: #0056b3;
+    padding-left: 22px;
 }
 
 .sidebar-link.active {
-    /* Highlighted active link background */
-    color: white;
-    padding-left: 20px;
-    /* Maintain left shift on active */
+    background-color: white;
+    color: rgb(16, 15, 15);
+    padding-left: 22px;
+}
+
+.sidebar-link.active:hover {
+    background-color: #e0e7ff;
+    color: #0056b3;
+    padding-left: 22px;
 }
 
 .sidebar-link span {
-    margin-left: 10px;
-    /* Spacing between icon and text */
+    margin-left: 12px;
 }
 
 .sidebar-icon {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.logout-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #ee606e;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    font-weight: 500;
+}
 
-/* Responsive Behavior for Smaller Screens */
+.logout-button:hover {
+    background-color: #b52b3a;
+}
 
 @media (max-width: 768px) {
     .sidebar {
-        width: 200px;
-        padding: 10px;
+        width: 220px;
+        padding: 15px;
     }
     .sidebar h2 {
-        font-size: 18px;
+        font-size: 20px;
         margin-bottom: 20px;
     }
     .sidebar-link {
         font-size: 14px;
-        padding: 8px 10px;
+        padding: 10px 12px;
     }
 }
